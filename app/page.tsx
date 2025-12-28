@@ -1,13 +1,20 @@
-// import Image from "next/image";
+import Image from "next/image";
 
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
+import Header from "@/components/header";
+import Banner from "@/public/banner.png";
 
 export default function Home() {
   return (
-    <h1 className="flex h-screen flex-col items-center justify-center">
-      <Button variant={"destructive"}>Full Stack Weekend</Button>
-      <Input type="text" placeholder="Enter your name" />
-    </h1>
+    <div>
+      <Header />
+      <div className="px-4">
+        <Image
+          src={Banner}
+          alt="Agende nas melhores barbearias com a QRégua"
+          sizes="100vw"
+          className="h-auto w-full rounded-2xl"
+        />
+      </div>
+    </div>
   );
 }
