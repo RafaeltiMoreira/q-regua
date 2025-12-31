@@ -18,3 +18,11 @@ export const getPopularBarbershops = async () => {
   });
   return popularBarbershops;
 };
+
+export const getBarbershopById = async (id: string) => {
+  const barbershop = await prisma.barbershop.findUnique({
+    where: { id },
+    include: { services: true },
+  });
+  return barbershop;
+};

@@ -3,6 +3,8 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Merriweather, Plus_Jakarta_Sans } from "next/font/google";
 
+import { Toaster } from "@/components/ui/sonner";
+
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
   subsets: ["latin"],
@@ -31,6 +33,7 @@ export default function RootLayout({
         className={`${plusJakartaSans.variable} ${merriweather.variable} antialiased`}
       >
         {children}
+        <Toaster />
       </body>
     </html>
   );
