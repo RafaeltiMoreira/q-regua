@@ -14,7 +14,7 @@ const BarbershopItem = ({ barbershop }: BarbershopItemProps) => {
         href={`/barbershops/${barbershop.id}`}
         className="relative block h-full w-full rounded-xl"
       >
-        <div className="absolute top-0 left-0 z-10 h-full w-full rounded-xl bg-gradient-to-t from-black to-transparent" />
+        <div className="absolute inset-0 z-10 h-full w-full rounded-xl bg-linear-to-t from-black to-transparent" />
 
         <Image
           src={barbershop.imageUrl}
