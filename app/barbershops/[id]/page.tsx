@@ -9,13 +9,6 @@ import { getBarbershopById } from "@/data/barbershops";
 import BackButton from "./_components/back-button";
 import CopyButton from "./_components/copy-button";
 
-type PageProps<T extends string> = {
-  params: {
-    id: string;
-    type: T;
-  };
-};
-
 const BarbershopPage = async ({ params }: PageProps<"/barbershops/[id]">) => {
   const { id } = await params;
   const barbershop = await getBarbershopById(id);
@@ -76,7 +69,11 @@ const BarbershopPage = async ({ params }: PageProps<"/barbershops/[id]">) => {
           <PageSectionTitle>Serviços</PageSectionTitle>
           <div className="flex flex-col gap-3">
             {barbershop.services.map((service) => (
-              <ServiceItem key={service.id} service={service} />
+              <ServiceItem
+                key={service.id}
+                service={service}
+                barbershop={barbershop}
+              />
             ))}
           </div>
         </div>
