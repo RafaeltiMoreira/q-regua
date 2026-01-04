@@ -26,7 +26,7 @@ export default async function Home() {
         <Image
           src={Banner}
           alt="Agende nas melhores barbearias com a QRégua"
-          sizes="100vw"
+          sizes="(max-width: 768px) 100vw, 33vw"
           className="h-auto w-full rounded-2xl"
         />
 

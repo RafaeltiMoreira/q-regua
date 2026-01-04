@@ -25,6 +25,8 @@ const BarbershopPage = async ({ params }: PageProps<"/barbershops/[id]">) => {
           src={barbershop.imageUrl}
           alt={barbershop.name}
           fill
+          priority
+          sizes="(max-width: 768px) 100vw, 33vw"
           className="object-cover"
         />
         <BackButton />
@@ -40,6 +42,7 @@ const BarbershopPage = async ({ params }: PageProps<"/barbershops/[id]">) => {
                 src={barbershop.imageUrl}
                 alt={barbershop.name}
                 fill
+                sizes="(max-width: 768px) 100vw, 33vw"
                 className="rounded-full object-cover"
               />
             </div>

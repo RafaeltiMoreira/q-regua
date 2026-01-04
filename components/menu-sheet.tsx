@@ -53,7 +53,7 @@ const MenuSheet = () => {
           <MenuIcon />
         </Button>
       </SheetTrigger>
-      <SheetContent side="left" className="p-0">
+      <SheetContent side="left" className="p-0" aria-describedby={undefined}>
         <SheetHeader className="border-border border-b px-5 py-6 text-left">
           <SheetTitle>Menu</SheetTitle>
         </SheetHeader>
