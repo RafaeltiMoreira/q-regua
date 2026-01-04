@@ -31,6 +31,8 @@ interface ServiceItemProps {
 }
 
 const TIME_LIST = [
+  "08:00",
+  "08:30",
   "09:00",
   "09:30",
   "10:00",
@@ -48,6 +50,10 @@ const TIME_LIST = [
   "16:00",
   "16:30",
   "17:00",
+  "17:30",
+  "18:00",
+  "18:30",
+  "19:00",
 ];
 
 const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
@@ -82,8 +88,15 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
     const splittedTime = selectedTime.split(":");
     const hours = Number(splittedTime[0]);
     const minutes = Number(splittedTime[1]);
-    const date = new Date(selectedDate);
-    date.setHours(hours, minutes);
+    const date = new Date(
+      selectedDate.getFullYear(),
+      selectedDate.getMonth(),
+      selectedDate.getDate(),
+      hours,
+      minutes,
+      0,
+      0,
+    );
     const result = await executeCreateBooking({
       date,
       serviceId: service.id,
@@ -96,7 +109,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
         "Erro ao criar agendamento. Por favor, tente novamente.",
       );
     }
-    toast.success("Agendamento criado com sucesso!");
+    toast.success("Agendamento reservado com sucesso!");
     setSheetIsOpen(false);
     setSelectedDate(undefined);
     setSelectedTime(undefined);
@@ -132,7 +145,9 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
             <SheetContent className="overflow-y-auto px-0 pb-0">
               <SheetHeader className="border-border border-b px-5 py-6">
                 <SheetTitle>Fazer Reserva</SheetTitle>
-                <SheetDescription>Selecione a data e o horário</SheetDescription>
+                <SheetDescription>
+                  Selecione a data e o horário
+                </SheetDescription>
               </SheetHeader>
 
               <div className="border-border border-b px-5 py-6">

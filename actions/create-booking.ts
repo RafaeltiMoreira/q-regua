@@ -1,4 +1,4 @@
-"use server"; // don't forget to add this!
+"use server";
 
 import { headers } from "next/headers";
 import { returnValidationErrors } from "next-safe-action";
@@ -8,7 +8,6 @@ import { actionClient } from "@/lib/action-client";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 
-// This schema is used to validate input from client.
 const inputSchema = z.object({
   serviceId: z.uuid(),
   date: z.date(),
@@ -22,7 +21,9 @@ export const createBooking = actionClient
     });
     if (!session?.user) {
       returnValidationErrors(inputSchema, {
-        _errors: ["Não autorizado. Para criar uma reserva é necessário estar logado."],
+        _errors: [
+          "Não autorizado. Para criar uma reserva é necessário estar logado.",
+        ],
       });
     }
     const service = await prisma.barbershopService.findUnique({
@@ -54,5 +55,7 @@ export const createBooking = actionClient
         barbershopId: service.barbershopId,
       },
     });
+    // console.log("Banco (Date):", booking?.date);
+    // console.log("Horário Brasil:", booking?.date.toLocaleTimeString("pt-BR"));
     return booking;
   });
