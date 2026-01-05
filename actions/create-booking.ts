@@ -19,7 +19,7 @@ export const createBooking = actionClient
   .action(async ({ parsedInput: { serviceId, date } }) => {
     if (isPast(date)) {
       returnValidationErrors(inputSchema, {
-        _errors: ["Data e hora selecionadas foram passadas."],
+        _errors: ["A data selecionada já passou."],
       });
     }
     const session = await auth.api.getSession({
