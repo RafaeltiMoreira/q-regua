@@ -78,7 +78,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
     }
     if (result.serverError) {
       return toast.error(
-        "Erro ao criar agendamento. Por favor, tente novamente.",
+        "Erro, você precisa estar logado para efetuar a reserva.",
       );
     }
     toast.success("Agendamento reservado com sucesso!");

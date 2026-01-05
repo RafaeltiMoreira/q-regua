@@ -3,6 +3,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Merriweather, Plus_Jakarta_Sans } from "next/font/google";
 
+import Footer from "@/components/footer";
 import { Toaster } from "@/components/ui/sonner";
 import { TanstackQueryProvider } from "@/providers/tanstack-query";
 
@@ -35,6 +36,7 @@ export default function RootLayout({
       >
         <TanstackQueryProvider>
           {children}
+          <Footer />
           <Toaster />
         </TanstackQueryProvider>
       </body>

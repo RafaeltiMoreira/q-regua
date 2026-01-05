@@ -2,7 +2,6 @@ import Image from "next/image";
 
 import BarbershopItem from "@/components/barbershop-item";
 import BookingItem from "@/components/booking-item";
-import Footer from "@/components/footer";
 import Header from "@/components/header";
 import QuickSearch from "@/components/quick-search";
 import {
@@ -12,11 +11,13 @@ import {
   PageSectionTitle,
 } from "@/components/ui/page";
 import { getBarbershops, getPopularBarbershops } from "@/data/barbershops";
+import { getUserBookings } from "@/data/bookings";
 import Banner from "@/public/banner.png";
 
 export default async function Home() {
   const barbershops = await getBarbershops();
   const popularBarberShops = await getPopularBarbershops();
+  const { confirmedBookings } = await getUserBookings();
 
   return (
     <div>
@@ -29,12 +30,16 @@ export default async function Home() {
           sizes="(max-width: 768px) 100vw, 33vw"
           className="h-auto w-full rounded-2xl"
         />
-
-        <PageSectionContent>
-          <PageSectionTitle>Agendamentos</PageSectionTitle>
-          <BookingItem />
-        </PageSectionContent>
-
+        {confirmedBookings.length > 0 && (
+          <PageSectionContent>
+            <PageSectionTitle>Agendamentos</PageSectionTitle>
+            <PageSectionScroller>
+              {confirmedBookings.map((booking) => (
+                <BookingItem key={booking.id} booking={booking} />
+              ))}
+            </PageSectionScroller>
+          </PageSectionContent>
+        )}
         <PageSectionContent>
           <PageSectionTitle>Barbearias</PageSectionTitle>
           <PageSectionScroller>
@@ -53,8 +58,6 @@ export default async function Home() {
           </PageSectionScroller>
         </PageSectionContent>
       </PageContainer>
-
-      <Footer />
     </div>
   );
 }
