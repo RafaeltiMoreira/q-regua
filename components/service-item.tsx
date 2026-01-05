@@ -129,6 +129,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
                   onSelect={handleDateSelect}
                   locale={ptBR}
                   className="w-full p-0"
+                  disabled={{ before: new Date() }}
                   classNames={{
                     cell: "w-full",
                     day: "w-[36px] h-[36px] mx-auto text-sm bg-transparent hover:bg-muted rounded-full data-[selected=true]:bg-primary data-[selected=true]:text-primary-foreground",
