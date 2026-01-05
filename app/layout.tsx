@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Merriweather, Plus_Jakarta_Sans } from "next/font/google";
 
 import { Toaster } from "@/components/ui/sonner";
+import { TanstackQueryProvider } from "@/providers/tanstack-query";
 
 const plusJakartaSans = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta-sans",
@@ -32,8 +33,10 @@ export default function RootLayout({
       <body
         className={`${plusJakartaSans.variable} ${merriweather.variable} antialiased`}
       >
-        {children}
-        <Toaster />
+        <TanstackQueryProvider>
+          {children}
+          <Toaster />
+        </TanstackQueryProvider>
       </body>
     </html>
   );

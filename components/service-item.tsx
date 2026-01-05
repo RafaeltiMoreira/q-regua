@@ -5,11 +5,12 @@ import { ptBR } from "date-fns/locale";
 import { Loader2 } from "lucide-react";
 import Image from "next/image";
 import { useAction } from "next-safe-action/hooks";
-import { useMemo, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 
 import { createBooking } from "@/actions/create-booking";
 import { Barbershop, BarbershopService } from "@/generated/prisma/client";
+import { useGetDateAvailableTimeSlots } from "@/hooks/data/use-get-date-availabe-time-slots";
 import { formatCurrency } from "@/lib/utils";
 
 import { Button } from "./ui/button";
@@ -27,34 +28,8 @@ import {
 
 interface ServiceItemProps {
   service: BarbershopService;
-  barbershop: Pick<Barbershop, "name">;
+  barbershop: Barbershop;
 }
-
-const TIME_LIST = [
-  "08:00",
-  "08:30",
-  "09:00",
-  "09:30",
-  "10:00",
-  "10:30",
-  "11:00",
-  "11:30",
-  "12:00",
-  "12:30",
-  "13:00",
-  "13:30",
-  "14:00",
-  "14:30",
-  "15:00",
-  "15:30",
-  "16:00",
-  "16:30",
-  "17:00",
-  "17:30",
-  "18:00",
-  "18:30",
-  "19:00",
-];
 
 const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
@@ -64,6 +39,10 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
   const [sheetIsOpen, setSheetIsOpen] = useState(false);
   const { executeAsync: executeCreateBooking, isPending: isCreatingBooking } =
     useAction(createBooking);
+  const { data: availableTimeSlots } = useGetDateAvailableTimeSlots({
+    barbershopId: barbershop.id,
+    date: selectedDate,
+  });
 
   const handleDateSelect = (date: Date | undefined) => {
     setSelectedDate(date);
@@ -73,13 +52,6 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
   const handleTimeSelect = (time: string) => {
     setSelectedTime(time);
   };
-
-  const timeList = useMemo(() => {
-    if (!selectedDate) {
-      return [];
-    }
-    return TIME_LIST;
-  }, [selectedDate]);
 
   const handleConfirmBooking = async () => {
     if (!selectedDate || !selectedTime) {
@@ -178,7 +150,7 @@ const ServiceItem = ({ service, barbershop }: ServiceItemProps) => {
               {/* Time Selection */}
               {selectedDate && (
                 <div className="border-border flex gap-3 overflow-x-auto border-b px-5 py-6 [&::-webkit-scrollbar]:hidden">
-                  {timeList.map((time) => (
+                  {availableTimeSlots?.data?.map((time) => (
                     <Button
                       key={time}
                       variant={selectedTime === time ? "default" : "outline"}
